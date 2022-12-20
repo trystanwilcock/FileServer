@@ -1,0 +1,74 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<p>
+    @Model.CurrentDirectoryFullPath
+</p>
+
+<p>
+    <a href="newdirectory?parent-directory=@Model.CurrentDirectoryId" class="me-3">New Directory</a>
+    <a href="upload?directory=@Model.CurrentDirectoryId">Upload here</a>
+</p>
+
+@if (!Model.DirectoryRecords.Any() && !Model.FileRecords.Any() && Model.ParentDirectoryIdOfCurrentDirectory == null)
+{
+    <p>Nothing to display.</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Size</th>
+                <th>Uploaded</th>
+                <th>Last Downloaded</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.CurrentDirectoryId > 0)
+            {
+                <tr>
+                    <td>
+                        <a href="/?directory=@Model.ParentDirectoryIdOfCurrentDirectory">Up</a>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            }
+            @foreach (var directory in Model.DirectoryRecords)
+            {
+                <tr>
+                    <td>
+                        <a href="/?directory=@directory.Id">@directory.Name</a>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            }
+            @foreach (var fileRecord in Model.FileRecords)
+            {
+                <tr>
+                    <td>@fileRecord.Name</td>
+                    <td>@fileRecord.Size</td>
+                    <td>@fileRecord.Uploaded</td>
+                    <td>@fileRecord.LastDownloaded</td>
+                    <td>
+                        <a href="@Url.Page("Index", "Download",
+                            new { fileId = fileRecord.Id })">
+                            Download
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

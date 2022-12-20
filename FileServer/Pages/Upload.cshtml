@@ -1,0 +1,17 @@
+﻿@page
+@model FileServer.Pages.UploadModel
+@{
+    ViewData["Title"] = "Upload File";
+}
+
+<p>Uploading to @Model.DirectoryPath</p>
+
+<form method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="mb-3">
+        <input asp-for="UploadDTO!.File" class="form-control">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

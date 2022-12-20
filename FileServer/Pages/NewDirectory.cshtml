@@ -1,0 +1,17 @@
+﻿@page
+@model FileServer.Pages.NewDirectoryModel
+@{
+    ViewData["Title"] = "New Directory";
+}
+
+<p>Creating directory in @Model.DirectoryPath</p>
+
+<form method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="mb-3">
+        <input asp-for="NewDirectoryDTO!.DirectoryName" class="form-control">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
